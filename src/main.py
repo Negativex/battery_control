@@ -1,6 +1,7 @@
+import os
 import sys
 
-from PyQt5 import QtWidgets
+from PyQt5 import QtWidgets, QtGui
 
 from db import RobotsDB
 from mainwindow import Ui_MainWindow
@@ -14,8 +15,30 @@ class MainWindow(QtWidgets.QMainWindow):
         super().__init__()
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
-        self.ui.button_start.clicked.connect(self.button_start_clicked)
-        self.ui.button_stop.clicked.connect(self.button_stop_clicked)
+        self.ui.button_add_battery.clicked.connect(self.add_battery)
+        self.ui.button_add_dive.clicked.connect(self.add_dive)
+        self.ui.button_add_robot.clicked.connect(self.add_robot)
+        self.ui.button_edit_battery.clicked.connect(self.edit_battery)
+        self.ui.button_edit_dive.clicked.connect(self.edit_dive)
+        self.ui.button_edit_robot.clicked.connect(self.edit_robot)
+
+    def add_battery(self):
+        pass
+
+    def add_dive(self):
+        pass
+
+    def add_robot(self):
+        pass
+
+    def edit_battery(self):
+        pass
+
+    def edit_dive(self):
+        pass
+
+    def edit_robot(self):
+        pass
 
     def reload(self):
         self.ui.statusbar.showMessage("Connecting to {} as {}...".format(db.host, db.username))
@@ -52,6 +75,10 @@ class MainWindow(QtWidgets.QMainWindow):
             for col, (cn, v) in enumerate(r.items()):
                 item = QtWidgets.QTableWidgetItem('{}'.format(v))
                 table.setItem(row, col, item)
+        bat = db.get_dives_batteries()
+        for row, r in enumerate(bat):
+            item = QtWidgets.QTableWidgetItem('{}'.format(r))
+            table.setItem(row, table.columnCount() - 1, item)
 
     def resize_tables(self):
         for t in [self.ui.table_dives, self.ui.table_batteries, self.ui.table_robots]:
@@ -59,15 +86,13 @@ class MainWindow(QtWidgets.QMainWindow):
             t.resizeColumnsToContents()
             t.setVisible(True)
 
-    def button_start_clicked(self):
-        pass
-
-    def button_stop_clicked(self):
-        pass
-
 
 if __name__ == '__main__':
     app = QtWidgets.QApplication([])
+    current_path = os.getcwd()
+    icon_path = os.path.join(current_path, 'assert', 'quadcopter.png')
+    print(icon_path, os.path.exists(icon_path))
+    app.setWindowIcon(QtGui.QIcon(icon_path))
     w = MainWindow()
     w.show()
     w.reload()

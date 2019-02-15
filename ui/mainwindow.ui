@@ -13,7 +13,21 @@
         <property name="windowTitle">
             <string>Battery Control</string>
         </property>
+        <property name="windowIcon">
+            <iconset>
+                <normalon>../../../Downloads/quadcopter.png</normalon>
+            </iconset>
+        </property>
+        <property name="documentMode">
+            <bool>false</bool>
+        </property>
         <property name="dockNestingEnabled">
+            <bool>false</bool>
+        </property>
+        <property name="dockOptions">
+            <set>QMainWindow::AllowTabbedDocks|QMainWindow::AnimatedDocks</set>
+        </property>
+        <property name="unifiedTitleAndToolBarOnMac">
             <bool>false</bool>
         </property>
         <widget class="QWidget" name="centralwidget">
@@ -30,194 +44,376 @@
                 <bool>false</bool>
             </property>
             <layout class="QGridLayout" name="gridLayout">
-                <item row="1" column="0">
-                    <layout class="QVBoxLayout" name="verticalLayout">
-                        <property name="sizeConstraint">
-                            <enum>QLayout::SetFixedSize</enum>
+                <property name="spacing">
+                    <number>1</number>
+                </property>
+                <item row="1" column="2" colspan="2">
+                    <widget class="QGroupBox" name="groupBox_2">
+                        <property name="title">
+                            <string/>
                         </property>
-                        <item>
-                            <widget class="QPushButton" name="button_start">
-                                <property name="text">
-                                    <string>Start</string>
-                                </property>
-                            </widget>
-                        </item>
-                        <item>
-                            <widget class="QPushButton" name="button_stop">
-                                <property name="text">
-                                    <string>Stop</string>
-                                </property>
-                            </widget>
-                        </item>
-                        <item>
-                            <spacer name="verticalSpacer">
-                                <property name="orientation">
-                                    <enum>Qt::Vertical</enum>
-                                </property>
-                                <property name="sizeHint" stdset="0">
-                                    <size>
-                                        <width>20</width>
-                                        <height>40</height>
-                                    </size>
-                                </property>
-                            </spacer>
-                        </item>
-                    </layout>
-                </item>
-                <item row="1" column="1">
-                    <widget class="QTableWidget" name="table_robots">
-                        <property name="editTriggers">
-                            <set>QAbstractItemView::NoEditTriggers</set>
-                        </property>
-                        <property name="selectionMode">
-                            <enum>QAbstractItemView::SingleSelection</enum>
-                        </property>
-                        <property name="selectionBehavior">
-                            <enum>QAbstractItemView::SelectRows</enum>
-                        </property>
-                        <property name="columnCount">
-                            <number>3</number>
-                        </property>
-                        <attribute name="horizontalHeaderStretchLastSection">
-                            <bool>true</bool>
-                        </attribute>
-                        <attribute name="verticalHeaderVisible">
+                        <property name="flat">
                             <bool>false</bool>
-                        </attribute>
-                        <attribute name="verticalHeaderDefaultSectionSize">
-                            <number>24</number>
-                        </attribute>
-                        <column>
-                            <property name="text">
-                                <string>Robot ID</string>
+                        </property>
+                        <property name="checkable">
+                            <bool>false</bool>
+                        </property>
+                        <property name="checked">
+                            <bool>false</bool>
+                        </property>
+                        <layout class="QHBoxLayout" name="horizontalLayout_2">
+                            <property name="leftMargin">
+                                <number>7</number>
                             </property>
-                        </column>
-                        <column>
-                            <property name="text">
-                                <string>Robot name</string>
+                            <property name="topMargin">
+                                <number>7</number>
                             </property>
-                        </column>
-                        <column>
-                            <property name="text">
-                                <string>Total time used</string>
+                            <property name="rightMargin">
+                                <number>7</number>
                             </property>
-                        </column>
+                            <property name="bottomMargin">
+                                <number>7</number>
+                            </property>
+                            <item>
+                                <widget class="QTableWidget" name="table_batteries">
+                                    <property name="enabled">
+                                        <bool>true</bool>
+                                    </property>
+                                    <property name="editTriggers">
+                                        <set>QAbstractItemView::NoEditTriggers</set>
+                                    </property>
+                                    <property name="selectionMode">
+                                        <enum>QAbstractItemView::SingleSelection</enum>
+                                    </property>
+                                    <property name="selectionBehavior">
+                                        <enum>QAbstractItemView::SelectRows</enum>
+                                    </property>
+                                    <property name="columnCount">
+                                        <number>4</number>
+                                    </property>
+                                    <attribute name="horizontalHeaderVisible">
+                                        <bool>false</bool>
+                                    </attribute>
+                                    <attribute name="horizontalHeaderCascadingSectionResizes">
+                                        <bool>true</bool>
+                                    </attribute>
+                                    <attribute name="horizontalHeaderDefaultSectionSize">
+                                        <number>60</number>
+                                    </attribute>
+                                    <attribute name="horizontalHeaderHighlightSections">
+                                        <bool>false</bool>
+                                    </attribute>
+                                    <attribute name="horizontalHeaderMinimumSectionSize">
+                                        <number>0</number>
+                                    </attribute>
+                                    <attribute name="horizontalHeaderStretchLastSection">
+                                        <bool>true</bool>
+                                    </attribute>
+                                    <attribute name="verticalHeaderVisible">
+                                        <bool>false</bool>
+                                    </attribute>
+                                    <attribute name="verticalHeaderDefaultSectionSize">
+                                        <number>24</number>
+                                    </attribute>
+                                    <column>
+                                        <property name="text">
+                                            <string>Battery ID</string>
+                                        </property>
+                                    </column>
+                                    <column>
+                                        <property name="text">
+                                            <string>Name</string>
+                                        </property>
+                                    </column>
+                                    <column>
+                                        <property name="text">
+                                            <string>Voltage</string>
+                                        </property>
+                                    </column>
+                                    <column>
+                                        <property name="text">
+                                            <string>Total time used</string>
+                                        </property>
+                                    </column>
+                                </widget>
+                            </item>
+                            <item>
+                                <layout class="QVBoxLayout" name="verticalLayout_3">
+                                    <item>
+                                        <widget class="QToolButton" name="button_add_battery">
+                                            <property name="text">
+                                                <string>...</string>
+                                            </property>
+                                            <property name="icon">
+                                                <iconset>
+                                                    <normaloff>../../../Downloads/add.png</normaloff>
+                                                    ../../../Downloads/add.png
+                                                </iconset>
+                                            </property>
+                                        </widget>
+                                    </item>
+                                    <item>
+                                        <widget class="QToolButton" name="button_edit_battery">
+                                            <property name="text">
+                                                <string>...</string>
+                                            </property>
+                                        </widget>
+                                    </item>
+                                    <item>
+                                        <spacer name="verticalSpacer_3">
+                                            <property name="orientation">
+                                                <enum>Qt::Vertical</enum>
+                                            </property>
+                                            <property name="sizeHint" stdset="0">
+                                                <size>
+                                                    <width>20</width>
+                                                    <height>40</height>
+                                                </size>
+                                            </property>
+                                        </spacer>
+                                    </item>
+                                </layout>
+                            </item>
+                        </layout>
                     </widget>
                 </item>
-                <item row="1" column="2">
-                    <widget class="QTableWidget" name="table_batteries">
+                <item row="1" column="0" colspan="2">
+                    <widget class="QGroupBox" name="groupBox">
+                        <property name="title">
+                            <string/>
+                        </property>
+                        <layout class="QHBoxLayout" name="horizontalLayout">
+                            <property name="spacing">
+                                <number>-1</number>
+                            </property>
+                            <property name="sizeConstraint">
+                                <enum>QLayout::SetDefaultConstraint</enum>
+                            </property>
+                            <property name="leftMargin">
+                                <number>7</number>
+                            </property>
+                            <property name="topMargin">
+                                <number>7</number>
+                            </property>
+                            <property name="rightMargin">
+                                <number>7</number>
+                            </property>
+                            <property name="bottomMargin">
+                                <number>7</number>
+                            </property>
+                            <item>
+                                <widget class="QTableWidget" name="table_robots">
+                                    <property name="editTriggers">
+                                        <set>QAbstractItemView::NoEditTriggers</set>
+                                    </property>
+                                    <property name="selectionMode">
+                                        <enum>QAbstractItemView::SingleSelection</enum>
+                                    </property>
+                                    <property name="selectionBehavior">
+                                        <enum>QAbstractItemView::SelectRows</enum>
+                                    </property>
+                                    <property name="columnCount">
+                                        <number>3</number>
+                                    </property>
+                                    <attribute name="horizontalHeaderCascadingSectionResizes">
+                                        <bool>true</bool>
+                                    </attribute>
+                                    <attribute name="horizontalHeaderHighlightSections">
+                                        <bool>false</bool>
+                                    </attribute>
+                                    <attribute name="horizontalHeaderMinimumSectionSize">
+                                        <number>0</number>
+                                    </attribute>
+                                    <attribute name="horizontalHeaderStretchLastSection">
+                                        <bool>true</bool>
+                                    </attribute>
+                                    <attribute name="verticalHeaderVisible">
+                                        <bool>false</bool>
+                                    </attribute>
+                                    <attribute name="verticalHeaderDefaultSectionSize">
+                                        <number>24</number>
+                                    </attribute>
+                                    <column>
+                                        <property name="text">
+                                            <string>Robot ID</string>
+                                        </property>
+                                    </column>
+                                    <column>
+                                        <property name="text">
+                                            <string>Robot name</string>
+                                        </property>
+                                    </column>
+                                    <column>
+                                        <property name="text">
+                                            <string>Total time used</string>
+                                        </property>
+                                    </column>
+                                </widget>
+                            </item>
+                            <item>
+                                <layout class="QVBoxLayout" name="verticalLayout_2">
+                                    <item>
+                                        <widget class="QToolButton" name="button_add_robot">
+                                            <property name="text">
+                                                <string>...</string>
+                                            </property>
+                                            <property name="icon">
+                                                <iconset>
+                                                    <normaloff>../../../Downloads/add.png</normaloff>
+                                                    ../../../Downloads/add.png
+                                                </iconset>
+                                            </property>
+                                        </widget>
+                                    </item>
+                                    <item>
+                                        <widget class="QToolButton" name="button_edit_robot">
+                                            <property name="text">
+                                                <string>...</string>
+                                            </property>
+                                        </widget>
+                                    </item>
+                                    <item>
+                                        <spacer name="verticalSpacer_2">
+                                            <property name="orientation">
+                                                <enum>Qt::Vertical</enum>
+                                            </property>
+                                            <property name="sizeHint" stdset="0">
+                                                <size>
+                                                    <width>20</width>
+                                                    <height>40</height>
+                                                </size>
+                                            </property>
+                                        </spacer>
+                                    </item>
+                                </layout>
+                            </item>
+                        </layout>
+                    </widget>
+                </item>
+                <item row="2" column="0" colspan="4">
+                    <widget class="QGroupBox" name="groupBox_3">
                         <property name="enabled">
                             <bool>true</bool>
                         </property>
-                        <property name="editTriggers">
-                            <set>QAbstractItemView::NoEditTriggers</set>
+                        <property name="title">
+                            <string/>
                         </property>
-                        <property name="selectionMode">
-                            <enum>QAbstractItemView::SingleSelection</enum>
-                        </property>
-                        <property name="selectionBehavior">
-                            <enum>QAbstractItemView::SelectRows</enum>
-                        </property>
-                        <property name="columnCount">
-                            <number>4</number>
-                        </property>
-                        <attribute name="horizontalHeaderVisible">
-                            <bool>true</bool>
-                        </attribute>
-                        <attribute name="horizontalHeaderCascadingSectionResizes">
-                            <bool>false</bool>
-                        </attribute>
-                        <attribute name="horizontalHeaderDefaultSectionSize">
-                            <number>60</number>
-                        </attribute>
-                        <attribute name="horizontalHeaderStretchLastSection">
-                            <bool>true</bool>
-                        </attribute>
-                        <attribute name="verticalHeaderVisible">
-                            <bool>false</bool>
-                        </attribute>
-                        <attribute name="verticalHeaderDefaultSectionSize">
-                            <number>24</number>
-                        </attribute>
-                        <column>
-                            <property name="text">
-                                <string>Battery ID</string>
+                        <layout class="QHBoxLayout" name="horizontalLayout_4">
+                            <property name="leftMargin">
+                                <number>7</number>
                             </property>
-                        </column>
-                        <column>
-                            <property name="text">
-                                <string>Name</string>
+                            <property name="topMargin">
+                                <number>7</number>
                             </property>
-                        </column>
-                        <column>
-                            <property name="text">
-                                <string>Voltage</string>
+                            <property name="rightMargin">
+                                <number>7</number>
                             </property>
-                        </column>
-                        <column>
-                            <property name="text">
-                                <string>Total time used</string>
+                            <property name="bottomMargin">
+                                <number>7</number>
                             </property>
-                        </column>
-                    </widget>
-                </item>
-                <item row="2" column="1" colspan="2">
-                    <widget class="QTableWidget" name="table_dives">
-                        <property name="sizeAdjustPolicy">
-                            <enum>QAbstractScrollArea::AdjustIgnored</enum>
-                        </property>
-                        <property name="editTriggers">
-                            <set>QAbstractItemView::NoEditTriggers</set>
-                        </property>
-                        <property name="alternatingRowColors">
-                            <bool>true</bool>
-                        </property>
-                        <property name="selectionMode">
-                            <enum>QAbstractItemView::SingleSelection</enum>
-                        </property>
-                        <property name="selectionBehavior">
-                            <enum>QAbstractItemView::SelectRows</enum>
-                        </property>
-                        <attribute name="horizontalHeaderCascadingSectionResizes">
-                            <bool>true</bool>
-                        </attribute>
-                        <attribute name="horizontalHeaderDefaultSectionSize">
-                            <number>120</number>
-                        </attribute>
-                        <attribute name="horizontalHeaderShowSortIndicator" stdset="0">
-                            <bool>false</bool>
-                        </attribute>
-                        <attribute name="horizontalHeaderStretchLastSection">
-                            <bool>true</bool>
-                        </attribute>
-                        <attribute name="verticalHeaderVisible">
-                            <bool>false</bool>
-                        </attribute>
-                        <column>
-                            <property name="text">
-                                <string>Dive ID</string>
-                            </property>
-                        </column>
-                        <column>
-                            <property name="text">
-                                <string>Time Started</string>
-                            </property>
-                        </column>
-                        <column>
-                            <property name="text">
-                                <string>Time Finished</string>
-                            </property>
-                        </column>
-                        <column>
-                            <property name="text">
-                                <string>Duration</string>
-                            </property>
-                        </column>
-                        <column>
-                            <property name="text">
-                                <string>Batteries</string>
-                            </property>
-                        </column>
+                            <item>
+                                <widget class="QTableWidget" name="table_dives">
+                                    <property name="sizeAdjustPolicy">
+                                        <enum>QAbstractScrollArea::AdjustIgnored</enum>
+                                    </property>
+                                    <property name="editTriggers">
+                                        <set>QAbstractItemView::NoEditTriggers</set>
+                                    </property>
+                                    <property name="alternatingRowColors">
+                                        <bool>true</bool>
+                                    </property>
+                                    <property name="selectionMode">
+                                        <enum>QAbstractItemView::SingleSelection</enum>
+                                    </property>
+                                    <property name="selectionBehavior">
+                                        <enum>QAbstractItemView::SelectRows</enum>
+                                    </property>
+                                    <attribute name="horizontalHeaderCascadingSectionResizes">
+                                        <bool>true</bool>
+                                    </attribute>
+                                    <attribute name="horizontalHeaderDefaultSectionSize">
+                                        <number>120</number>
+                                    </attribute>
+                                    <attribute name="horizontalHeaderHighlightSections">
+                                        <bool>false</bool>
+                                    </attribute>
+                                    <attribute name="horizontalHeaderMinimumSectionSize">
+                                        <number>0</number>
+                                    </attribute>
+                                    <attribute name="horizontalHeaderShowSortIndicator" stdset="0">
+                                        <bool>false</bool>
+                                    </attribute>
+                                    <attribute name="horizontalHeaderStretchLastSection">
+                                        <bool>true</bool>
+                                    </attribute>
+                                    <attribute name="verticalHeaderVisible">
+                                        <bool>false</bool>
+                                    </attribute>
+                                    <column>
+                                        <property name="text">
+                                            <string>Dive ID</string>
+                                        </property>
+                                    </column>
+                                    <column>
+                                        <property name="text">
+                                            <string>Time Started</string>
+                                        </property>
+                                    </column>
+                                    <column>
+                                        <property name="text">
+                                            <string>Time Finished</string>
+                                        </property>
+                                    </column>
+                                    <column>
+                                        <property name="text">
+                                            <string>Duration</string>
+                                        </property>
+                                    </column>
+                                    <column>
+                                        <property name="text">
+                                            <string>Batteries</string>
+                                        </property>
+                                    </column>
+                                </widget>
+                            </item>
+                            <item>
+                                <layout class="QVBoxLayout" name="verticalLayout_4">
+                                    <item>
+                                        <widget class="QToolButton" name="button_add_dive">
+                                            <property name="text">
+                                                <string>...</string>
+                                            </property>
+                                            <property name="icon">
+                                                <iconset>
+                                                    <normaloff>../../../Downloads/add.png</normaloff>
+                                                    ../../../Downloads/add.png
+                                                </iconset>
+                                            </property>
+                                        </widget>
+                                    </item>
+                                    <item>
+                                        <widget class="QToolButton" name="button_edit_dive">
+                                            <property name="text">
+                                                <string>...</string>
+                                            </property>
+                                        </widget>
+                                    </item>
+                                    <item>
+                                        <spacer name="verticalSpacer_4">
+                                            <property name="orientation">
+                                                <enum>Qt::Vertical</enum>
+                                            </property>
+                                            <property name="sizeHint" stdset="0">
+                                                <size>
+                                                    <width>20</width>
+                                                    <height>40</height>
+                                                </size>
+                                            </property>
+                                        </spacer>
+                                    </item>
+                                </layout>
+                            </item>
+                        </layout>
                     </widget>
                 </item>
             </layout>
@@ -231,9 +427,44 @@
                     <height>22</height>
                 </rect>
             </property>
+            <widget class="QMenu" name="menuFi_e">
+                <property name="title">
+                    <string>File</string>
+                </property>
+            </widget>
+            <widget class="QMenu" name="menuEdit">
+                <property name="title">
+                    <string>Edit</string>
+                </property>
+            </widget>
+            <widget class="QMenu" name="menuHelp">
+                <property name="title">
+                    <string>Help</string>
+                </property>
+                <addaction name="actionAbout"/>
+            </widget>
+            <addaction name="menuFi_e"/>
+            <addaction name="menuEdit"/>
+            <addaction name="menuHelp"/>
         </widget>
         <widget class="QStatusBar" name="statusbar"/>
+        <action name="actionAbout">
+            <property name="text">
+                <string>About...</string>
+            </property>
+        </action>
     </widget>
+    <tabstops>
+        <tabstop>table_robots</tabstop>
+        <tabstop>button_add_robot</tabstop>
+        <tabstop>button_edit_robot</tabstop>
+        <tabstop>table_batteries</tabstop>
+        <tabstop>button_add_battery</tabstop>
+        <tabstop>button_edit_battery</tabstop>
+        <tabstop>table_dives</tabstop>
+        <tabstop>button_add_dive</tabstop>
+        <tabstop>button_edit_dive</tabstop>
+    </tabstops>
     <resources/>
     <connections/>
 </ui>
