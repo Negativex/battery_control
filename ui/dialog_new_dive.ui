@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+    <class>Dialog</class>
+    <widget class="QDialog" name="Dialog">
+        <property name="geometry">
+            <rect>
+                <x>0</x>
+                <y>0</y>
+                <width>418</width>
+                <height>410</height>
+            </rect>
+        </property>
+        <property name="windowTitle">
+            <string>Dialog</string>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout">
+            <item>
+                <layout class="QFormLayout" name="formLayout">
+                    <item row="0" column="0">
+                        <widget class="QLabel" name="label_3">
+                            <property name="text">
+                                <string>Robot:</string>
+                            </property>
+                        </widget>
+                    </item>
+                    <item row="0" column="1">
+                        <widget class="QComboBox" name="edit_robot"/>
+                    </item>
+                    <item row="1" column="0">
+                        <widget class="QLabel" name="label">
+                            <property name="text">
+                                <string>Start time:</string>
+                            </property>
+                        </widget>
+                    </item>
+                    <item row="1" column="1">
+                        <widget class="QDateTimeEdit" name="edit_date_start">
+                            <property name="dateTime">
+                                <datetime>
+                                    <hour>0</hour>
+                                    <minute>0</minute>
+                                    <second>0</second>
+                                    <year>2019</year>
+                                    <month>9</month>
+                                    <day>14</day>
+                                </datetime>
+                            </property>
+                            <property name="minimumDateTime">
+                                <datetime>
+                                    <hour>0</hour>
+                                    <minute>0</minute>
+                                    <second>0</second>
+                                    <year>2019</year>
+                                    <month>1</month>
+                                    <day>1</day>
+                                </datetime>
+                            </property>
+                        </widget>
+                    </item>
+                    <item row="2" column="0">
+                        <widget class="QLabel" name="label_2">
+                            <property name="text">
+                                <string>Finish time:</string>
+                            </property>
+                        </widget>
+                    </item>
+                    <item row="2" column="1">
+                        <widget class="QDateTimeEdit" name="edit_date_finish"/>
+                    </item>
+                    <item row="3" column="0">
+                        <widget class="QLabel" name="label_4">
+                            <property name="text">
+                                <string>Battery pack:</string>
+                            </property>
+                        </widget>
+                    </item>
+                </layout>
+            </item>
+            <item>
+                <widget class="QTableWidget" name="table_batteries">
+                    <property name="enabled">
+                        <bool>true</bool>
+                    </property>
+                    <property name="editTriggers">
+                        <set>QAbstractItemView::NoEditTriggers</set>
+                    </property>
+                    <property name="selectionMode">
+                        <enum>QAbstractItemView::NoSelection</enum>
+                    </property>
+                    <property name="selectionBehavior">
+                        <enum>QAbstractItemView::SelectRows</enum>
+                    </property>
+                    <property name="columnCount">
+                        <number>4</number>
+                    </property>
+                    <attribute name="horizontalHeaderVisible">
+                        <bool>true</bool>
+                    </attribute>
+                    <attribute name="horizontalHeaderCascadingSectionResizes">
+                        <bool>true</bool>
+                    </attribute>
+                    <attribute name="horizontalHeaderDefaultSectionSize">
+                        <number>60</number>
+                    </attribute>
+                    <attribute name="horizontalHeaderHighlightSections">
+                        <bool>false</bool>
+                    </attribute>
+                    <attribute name="horizontalHeaderMinimumSectionSize">
+                        <number>0</number>
+                    </attribute>
+                    <attribute name="horizontalHeaderStretchLastSection">
+                        <bool>true</bool>
+                    </attribute>
+                    <attribute name="verticalHeaderVisible">
+                        <bool>false</bool>
+                    </attribute>
+                    <attribute name="verticalHeaderDefaultSectionSize">
+                        <number>24</number>
+                    </attribute>
+                    <column>
+                        <property name="text">
+                            <string>Battery ID</string>
+                        </property>
+                    </column>
+                    <column>
+                        <property name="text">
+                            <string>Name</string>
+                        </property>
+                    </column>
+                    <column>
+                        <property name="text">
+                            <string>Voltage</string>
+                        </property>
+                    </column>
+                    <column>
+                        <property name="text">
+                            <string>Total time used</string>
+                        </property>
+                    </column>
+                </widget>
+            </item>
+            <item>
+                <widget class="QDialogButtonBox" name="buttonBox">
+                    <property name="orientation">
+                        <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="standardButtons">
+                        <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+                    </property>
+                </widget>
+            </item>
+        </layout>
+    </widget>
+    <resources/>
+    <connections>
+        <connection>
+            <sender>buttonBox</sender>
+            <signal>accepted()</signal>
+            <receiver>Dialog</receiver>
+            <slot>accept()</slot>
+            <hints>
+                <hint type="sourcelabel">
+                    <x>248</x>
+                    <y>254</y>
+                </hint>
+                <hint type="destinationlabel">
+                    <x>157</x>
+                    <y>274</y>
+                </hint>
+            </hints>
+        </connection>
+        <connection>
+            <sender>buttonBox</sender>
+            <signal>rejected()</signal>
+            <receiver>Dialog</receiver>
+            <slot>reject()</slot>
+            <hints>
+                <hint type="sourcelabel">
+                    <x>316</x>
+                    <y>260</y>
+                </hint>
+                <hint type="destinationlabel">
+                    <x>286</x>
+                    <y>274</y>
+                </hint>
+            </hints>
+        </connection>
+    </connections>
+</ui>
