@@ -8,7 +8,6 @@
 
 from PyQt5 import QtCore, QtWidgets
 
-
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
@@ -51,3 +50,4 @@ class Ui_Dialog(object):
         self.label.setText(_translate("Dialog", "Battery name:"))
         self.label_2.setText(_translate("Dialog", "Voltage:"))
         self.edit_voltage.setSuffix(_translate("Dialog", "V"))
+

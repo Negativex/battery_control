@@ -6,8 +6,8 @@
             <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>735</width>
-                <height>533</height>
+                <width>780</width>
+                <height>605</height>
             </rect>
         </property>
         <property name="windowTitle">
@@ -44,10 +44,148 @@
                 <bool>false</bool>
             </property>
             <layout class="QGridLayout" name="gridLayout">
+                <property name="leftMargin">
+                    <number>7</number>
+                </property>
+                <property name="topMargin">
+                    <number>7</number>
+                </property>
+                <property name="rightMargin">
+                    <number>7</number>
+                </property>
+                <property name="bottomMargin">
+                    <number>7</number>
+                </property>
                 <property name="spacing">
                     <number>1</number>
                 </property>
-                <item row="1" column="2" colspan="2">
+                <item row="1" column="0">
+                    <widget class="QGroupBox" name="groupBox">
+                        <property name="title">
+                            <string/>
+                        </property>
+                        <layout class="QHBoxLayout" name="horizontalLayout">
+                            <property name="spacing">
+                                <number>-1</number>
+                            </property>
+                            <property name="sizeConstraint">
+                                <enum>QLayout::SetDefaultConstraint</enum>
+                            </property>
+                            <property name="leftMargin">
+                                <number>7</number>
+                            </property>
+                            <property name="topMargin">
+                                <number>7</number>
+                            </property>
+                            <property name="rightMargin">
+                                <number>7</number>
+                            </property>
+                            <property name="bottomMargin">
+                                <number>7</number>
+                            </property>
+                            <item>
+                                <widget class="QTableWidget" name="table_robots">
+                                    <property name="editTriggers">
+                                        <set>QAbstractItemView::NoEditTriggers</set>
+                                    </property>
+                                    <property name="selectionMode">
+                                        <enum>QAbstractItemView::SingleSelection</enum>
+                                    </property>
+                                    <property name="selectionBehavior">
+                                        <enum>QAbstractItemView::SelectRows</enum>
+                                    </property>
+                                    <property name="columnCount">
+                                        <number>3</number>
+                                    </property>
+                                    <attribute name="horizontalHeaderCascadingSectionResizes">
+                                        <bool>true</bool>
+                                    </attribute>
+                                    <attribute name="horizontalHeaderHighlightSections">
+                                        <bool>false</bool>
+                                    </attribute>
+                                    <attribute name="horizontalHeaderMinimumSectionSize">
+                                        <number>0</number>
+                                    </attribute>
+                                    <attribute name="horizontalHeaderStretchLastSection">
+                                        <bool>true</bool>
+                                    </attribute>
+                                    <attribute name="verticalHeaderVisible">
+                                        <bool>false</bool>
+                                    </attribute>
+                                    <attribute name="verticalHeaderDefaultSectionSize">
+                                        <number>24</number>
+                                    </attribute>
+                                    <column>
+                                        <property name="text">
+                                            <string>Robot ID</string>
+                                        </property>
+                                    </column>
+                                    <column>
+                                        <property name="text">
+                                            <string>Robot name</string>
+                                        </property>
+                                    </column>
+                                    <column>
+                                        <property name="text">
+                                            <string>Total time used</string>
+                                        </property>
+                                    </column>
+                                </widget>
+                            </item>
+                            <item>
+                                <layout class="QVBoxLayout" name="verticalLayout_2">
+                                    <item>
+                                        <widget class="QToolButton" name="button_add_robot">
+                                            <property name="text">
+                                                <string>...</string>
+                                            </property>
+                                            <property name="icon">
+                                                <iconset>
+                                                    <normaloff>../../../Downloads/add.png</normaloff>
+                                                    ../../../Downloads/add.png
+                                                </iconset>
+                                            </property>
+                                        </widget>
+                                    </item>
+                                    <item>
+                                        <widget class="QToolButton" name="button_edit_robot">
+                                            <property name="text">
+                                                <string>...</string>
+                                            </property>
+                                        </widget>
+                                    </item>
+                                    <item>
+                                        <widget class="QToolButton" name="button_remove_robot">
+                                            <property name="text">
+                                                <string>...</string>
+                                            </property>
+                                            <property name="icon">
+                                                <iconset>
+                                                    <normaloff>../src/assert/substract.png</normaloff>
+                                                    ../src/assert/substract.png
+                                                </iconset>
+                                            </property>
+                                        </widget>
+                                    </item>
+                                    <item>
+                                        <spacer name="verticalSpacer_2">
+                                            <property name="orientation">
+                                                <enum>Qt::Vertical</enum>
+                                            </property>
+                                            <property name="sizeHint" stdset="0">
+                                                <size>
+                                                    <width>20</width>
+                                                    <height>40</height>
+                                                </size>
+                                            </property>
+                                        </spacer>
+                                    </item>
+                                </layout>
+                            </item>
+                        </layout>
+                    </widget>
+                </item>
+                <item row="1" column="1">
                     <widget class="QGroupBox" name="groupBox_2">
                         <property name="title">
                             <string/>
@@ -160,6 +298,19 @@
                                         </widget>
                                     </item>
                                     <item>
+                                        <widget class="QToolButton" name="button_remove_battery">
+                                            <property name="text">
+                                                <string>...</string>
+                                            </property>
+                                            <property name="icon">
+                                                <iconset>
+                                                    <normaloff>../src/assert/substract.png</normaloff>
+                                                    ../src/assert/substract.png
+                                                </iconset>
+                                            </property>
+                                        </widget>
+                                    </item>
+                                    <item>
                                         <spacer name="verticalSpacer_3">
                                             <property name="orientation">
                                                 <enum>Qt::Vertical</enum>
@@ -177,120 +328,7 @@
                         </layout>
                     </widget>
                 </item>
-                <item row="1" column="0" colspan="2">
-                    <widget class="QGroupBox" name="groupBox">
-                        <property name="title">
-                            <string/>
-                        </property>
-                        <layout class="QHBoxLayout" name="horizontalLayout">
-                            <property name="spacing">
-                                <number>-1</number>
-                            </property>
-                            <property name="sizeConstraint">
-                                <enum>QLayout::SetDefaultConstraint</enum>
-                            </property>
-                            <property name="leftMargin">
-                                <number>7</number>
-                            </property>
-                            <property name="topMargin">
-                                <number>7</number>
-                            </property>
-                            <property name="rightMargin">
-                                <number>7</number>
-                            </property>
-                            <property name="bottomMargin">
-                                <number>7</number>
-                            </property>
-                            <item>
-                                <widget class="QTableWidget" name="table_robots">
-                                    <property name="editTriggers">
-                                        <set>QAbstractItemView::NoEditTriggers</set>
-                                    </property>
-                                    <property name="selectionMode">
-                                        <enum>QAbstractItemView::SingleSelection</enum>
-                                    </property>
-                                    <property name="selectionBehavior">
-                                        <enum>QAbstractItemView::SelectRows</enum>
-                                    </property>
-                                    <property name="columnCount">
-                                        <number>3</number>
-                                    </property>
-                                    <attribute name="horizontalHeaderCascadingSectionResizes">
-                                        <bool>true</bool>
-                                    </attribute>
-                                    <attribute name="horizontalHeaderHighlightSections">
-                                        <bool>false</bool>
-                                    </attribute>
-                                    <attribute name="horizontalHeaderMinimumSectionSize">
-                                        <number>0</number>
-                                    </attribute>
-                                    <attribute name="horizontalHeaderStretchLastSection">
-                                        <bool>true</bool>
-                                    </attribute>
-                                    <attribute name="verticalHeaderVisible">
-                                        <bool>false</bool>
-                                    </attribute>
-                                    <attribute name="verticalHeaderDefaultSectionSize">
-                                        <number>24</number>
-                                    </attribute>
-                                    <column>
-                                        <property name="text">
-                                            <string>Robot ID</string>
-                                        </property>
-                                    </column>
-                                    <column>
-                                        <property name="text">
-                                            <string>Robot name</string>
-                                        </property>
-                                    </column>
-                                    <column>
-                                        <property name="text">
-                                            <string>Total time used</string>
-                                        </property>
-                                    </column>
-                                </widget>
-                            </item>
-                            <item>
-                                <layout class="QVBoxLayout" name="verticalLayout_2">
-                                    <item>
-                                        <widget class="QToolButton" name="button_add_robot">
-                                            <property name="text">
-                                                <string>...</string>
-                                            </property>
-                                            <property name="icon">
-                                                <iconset>
-                                                    <normaloff>../../../Downloads/add.png</normaloff>
-                                                    ../../../Downloads/add.png
-                                                </iconset>
-                                            </property>
-                                        </widget>
-                                    </item>
-                                    <item>
-                                        <widget class="QToolButton" name="button_edit_robot">
-                                            <property name="text">
-                                                <string>...</string>
-                                            </property>
-                                        </widget>
-                                    </item>
-                                    <item>
-                                        <spacer name="verticalSpacer_2">
-                                            <property name="orientation">
-                                                <enum>Qt::Vertical</enum>
-                                            </property>
-                                            <property name="sizeHint" stdset="0">
-                                                <size>
-                                                    <width>20</width>
-                                                    <height>40</height>
-                                                </size>
-                                            </property>
-                                        </spacer>
-                                    </item>
-                                </layout>
-                            </item>
-                        </layout>
-                    </widget>
-                </item>
-                <item row="2" column="0" colspan="4">
+                <item row="2" column="0" colspan="2">
                     <widget class="QGroupBox" name="groupBox_3">
                         <property name="enabled">
                             <bool>true</bool>
@@ -356,6 +394,11 @@
                                     </column>
                                     <column>
                                         <property name="text">
+                                            <string>Robot</string>
+                                        </property>
+                                    </column>
+                                    <column>
+                                        <property name="text">
                                             <string>Time Started</string>
                                         </property>
                                     </column>
@@ -392,9 +435,27 @@
                                         </widget>
                                     </item>
                                     <item>
-                                        <widget class="QToolButton" name="button_edit_dive">
+                                        <widget class="QToolButton" name="button_remove_dive">
                                             <property name="text">
                                                 <string>...</string>
+                                            </property>
+                                            <property name="icon">
+                                                <iconset>
+                                                    <normaloff>../src/assert/substract.png</normaloff>
+                                                    ../src/assert/substract.png
+                                                </iconset>
+                                            </property>
+                                        </widget>
+                                    </item>
+                                    <item>
+                                        <widget class="QToolButton" name="button_stop_dive">
+                                            <property name="text">
+                                                <string>...</string>
+                                            </property>
+                                            <property name="icon">
+                                                <iconset>
+                                                    <normaloff>../src/assert/stop.png</normaloff>../src/assert/stop.png
+                                                </iconset>
                                             </property>
                                         </widget>
                                     </item>
@@ -416,6 +477,37 @@
                         </layout>
                     </widget>
                 </item>
+                <item row="0" column="0" colspan="2">
+                    <layout class="QHBoxLayout" name="horizontalLayout_3">
+                        <item>
+                            <widget class="QPushButton" name="button_refresh">
+                                <property name="text">
+                                    <string>Refresh</string>
+                                </property>
+                            </widget>
+                        </item>
+                        <item>
+                            <widget class="QPushButton" name="button_start_dive">
+                                <property name="text">
+                                    <string>Start new dive</string>
+                                </property>
+                            </widget>
+                        </item>
+                        <item>
+                            <spacer name="horizontalSpacer">
+                                <property name="orientation">
+                                    <enum>Qt::Horizontal</enum>
+                                </property>
+                                <property name="sizeHint" stdset="0">
+                                    <size>
+                                        <width>40</width>
+                                        <height>20</height>
+                                    </size>
+                                </property>
+                            </spacer>
+                        </item>
+                    </layout>
+                </item>
             </layout>
         </widget>
         <widget class="QMenuBar" name="menubar">
@@ -423,7 +515,7 @@
                 <rect>
                     <x>0</x>
                     <y>0</y>
-                    <width>735</width>
+                    <width>780</width>
                     <height>22</height>
                 </rect>
             </property>
@@ -463,7 +555,6 @@
         <tabstop>button_edit_battery</tabstop>
         <tabstop>table_dives</tabstop>
         <tabstop>button_add_dive</tabstop>
-        <tabstop>button_edit_dive</tabstop>
     </tabstops>
     <resources/>
     <connections/>

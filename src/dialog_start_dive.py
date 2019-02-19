@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'ui/dialog_new_dive.ui'
+# Form implementation generated from reading ui file 'ui/dialog_start_dive.ui'
 #
 # Created by: PyQt5 UI code generator 5.9
 #
@@ -8,38 +8,37 @@
 
 from PyQt5 import QtCore, QtWidgets
 
+
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
-        Dialog.resize(418, 410)
+        Dialog.resize(418, 391)
         self.verticalLayout = QtWidgets.QVBoxLayout(Dialog)
         self.verticalLayout.setObjectName("verticalLayout")
+        self.groupBox = QtWidgets.QGroupBox(Dialog)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.groupBox.sizePolicy().hasHeightForWidth())
+        self.groupBox.setSizePolicy(sizePolicy)
+        self.groupBox.setObjectName("groupBox")
+        self.verticalLayout_2 = QtWidgets.QVBoxLayout(self.groupBox)
+        self.verticalLayout_2.setObjectName("verticalLayout_2")
         self.formLayout = QtWidgets.QFormLayout()
+        self.formLayout.setSizeConstraint(QtWidgets.QLayout.SetDefaultConstraint)
+        self.formLayout.setFieldGrowthPolicy(QtWidgets.QFormLayout.AllNonFixedFieldsGrow)
         self.formLayout.setObjectName("formLayout")
-        self.label_3 = QtWidgets.QLabel(Dialog)
+        self.label_3 = QtWidgets.QLabel(self.groupBox)
         self.label_3.setObjectName("label_3")
         self.formLayout.setWidget(0, QtWidgets.QFormLayout.LabelRole, self.label_3)
-        self.edit_robot = QtWidgets.QComboBox(Dialog)
+        self.edit_robot = QtWidgets.QComboBox(self.groupBox)
         self.edit_robot.setObjectName("edit_robot")
         self.formLayout.setWidget(0, QtWidgets.QFormLayout.FieldRole, self.edit_robot)
-        self.label = QtWidgets.QLabel(Dialog)
-        self.label.setObjectName("label")
-        self.formLayout.setWidget(1, QtWidgets.QFormLayout.LabelRole, self.label)
-        self.edit_date_start = QtWidgets.QDateTimeEdit(Dialog)
-        self.edit_date_start.setDateTime(QtCore.QDateTime(QtCore.QDate(2019, 9, 14), QtCore.QTime(0, 0, 0)))
-        self.edit_date_start.setMinimumDateTime(QtCore.QDateTime(QtCore.QDate(2019, 1, 1), QtCore.QTime(0, 0, 0)))
-        self.edit_date_start.setObjectName("edit_date_start")
-        self.formLayout.setWidget(1, QtWidgets.QFormLayout.FieldRole, self.edit_date_start)
-        self.label_2 = QtWidgets.QLabel(Dialog)
-        self.label_2.setObjectName("label_2")
-        self.formLayout.setWidget(2, QtWidgets.QFormLayout.LabelRole, self.label_2)
-        self.edit_date_finish = QtWidgets.QDateTimeEdit(Dialog)
-        self.edit_date_finish.setObjectName("edit_date_finish")
-        self.formLayout.setWidget(2, QtWidgets.QFormLayout.FieldRole, self.edit_date_finish)
-        self.label_4 = QtWidgets.QLabel(Dialog)
+        self.label_4 = QtWidgets.QLabel(self.groupBox)
         self.label_4.setObjectName("label_4")
-        self.formLayout.setWidget(3, QtWidgets.QFormLayout.LabelRole, self.label_4)
-        self.verticalLayout.addLayout(self.formLayout)
+        self.formLayout.setWidget(1, QtWidgets.QFormLayout.LabelRole, self.label_4)
+        self.verticalLayout_2.addLayout(self.formLayout)
+        self.verticalLayout.addWidget(self.groupBox)
         self.table_batteries = QtWidgets.QTableWidget(Dialog)
         self.table_batteries.setEnabled(True)
         self.table_batteries.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
@@ -79,9 +78,8 @@ class Ui_Dialog(object):
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
         Dialog.setWindowTitle(_translate("Dialog", "Dialog"))
+        self.groupBox.setTitle(_translate("Dialog", "Start new dive"))
         self.label_3.setText(_translate("Dialog", "Robot:"))
-        self.label.setText(_translate("Dialog", "Start time:"))
-        self.label_2.setText(_translate("Dialog", "Finish time:"))
         self.label_4.setText(_translate("Dialog", "Battery pack:"))
         item = self.table_batteries.horizontalHeaderItem(0)
         item.setText(_translate("Dialog", "Battery ID"))
@@ -91,4 +89,3 @@ class Ui_Dialog(object):
         item.setText(_translate("Dialog", "Voltage"))
         item = self.table_batteries.horizontalHeaderItem(3)
         item.setText(_translate("Dialog", "Total time used"))
-

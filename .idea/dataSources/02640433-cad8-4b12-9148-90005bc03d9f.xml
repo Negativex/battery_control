@@ -3977,69 +3977,75 @@
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="905" parent="289" name="time_started">
+    <column id="905" parent="289" name="robot_id">
       <Position>2</Position>
-      <DataType>datetime|0s</DataType>
+      <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="906" parent="289" name="time_finished">
+    <column id="906" parent="289" name="time_started">
       <Position>3</Position>
       <DataType>datetime|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="907" parent="289" name="duration">
+    <column id="907" parent="289" name="time_finished">
       <Position>4</Position>
-      <DataType>int(11)|0s</DataType>
+      <DataType>datetime|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="908" parent="289" name="robot_id">
+    <column id="908" parent="289" name="duration">
       <Position>5</Position>
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="909" parent="289" name="dives_id_uindex">
+    <column id="909" parent="289" name="running">
+      <Position>6</Position>
+      <DataType>tinyint(1)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <index id="910" parent="289" name="dives_id_uindex">
       <ColNames>id</ColNames>
       <Unique>1</Unique>
       <Type>btree</Type>
     </index>
-    <key id="910" parent="289" name="PRIMARY">
+    <key id="911" parent="289" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="911" parent="289" name="dives_id_uindex">
+    <key id="912" parent="289" name="dives_id_uindex">
       <ColNames>id</ColNames>
       <UnderlyingIndexName>dives_id_uindex</UnderlyingIndexName>
     </key>
-    <column id="912" parent="290" name="id">
+    <column id="913" parent="290" name="id">
       <Position>1</Position>
       <DataType>int(10) unsigned|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="913" parent="290" name="name">
+    <column id="914" parent="290" name="name">
       <Position>2</Position>
       <DataType>varchar(45)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="914" parent="290" name="total_time">
+    <column id="915" parent="290" name="total_time">
       <Position>3</Position>
       <DataType>int(11)|0s</DataType>
       <DefaultExpression>0</DefaultExpression>
-      <ColumnKind>generated-virtual</ColumnKind>
+      <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="915" parent="290" name="id_UNIQUE">
+    <index id="916" parent="290" name="id_UNIQUE">
       <ColNames>id</ColNames>
       <Unique>1</Unique>
       <Type>btree</Type>
     </index>
-    <key id="916" parent="290" name="PRIMARY">
+    <key id="917" parent="290" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="917" parent="290" name="id_UNIQUE">
+    <key id="918" parent="290" name="id_UNIQUE">
       <ColNames>id</ColNames>
       <UnderlyingIndexName>id_UNIQUE</UnderlyingIndexName>
     </key>

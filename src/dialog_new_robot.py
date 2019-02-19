@@ -8,7 +8,6 @@
 
 from PyQt5 import QtCore, QtWidgets
 
-
 class Ui_dialog(object):
     def setupUi(self, dialog):
         dialog.setObjectName("dialog")
@@ -41,4 +40,4 @@ class Ui_dialog(object):
     def retranslateUi(self, dialog):
         _translate = QtCore.QCoreApplication.translate
         dialog.setWindowTitle(_translate("dialog", "New robot"))
-        self.label.setText(_translate("dialog", "Name: "))
+        self.label.setText(_translate("dialog", "Name:"))
