@@ -62,26 +62,35 @@ class RobotsDB:
             "SELECT dives.id AS dive_id, robots.name AS robot_name,"
             "time_started, time_finished, duration, running FROM dives "
             "LEFT OUTER JOIN robots ON robots.id = dives.robot_id")
-        return c.fetchall()
+        r = c.fetchall()
+        for dive in r:
+            dive['batteries'] = self.get_dives_batteries(dive_id=dive['dive_id'], names=True)
+        return r
 
     def get_dives_batteries(self, dive_id=None, names=True):
-        c = self.db.cursor()
-        c.execute(
-            "SELECT d.id, b.id, b.name FROM dives d "
-            "LEFT OUTER JOIN batteries_in_dives bd on dive_id = d.id "
-            "LEFT OUTER JOIN batteries b ON b.id = battery_id")
+        c = self.db.cursor(dictionary=True)
         if dive_id is None:
+            c.execute(
+                "SELECT dives.id as dive_id, batteries.id as battery_id, batteries.name as battery_name "
+                "FROM (dives "
+                "LEFT OUTER JOIN batteries_in_dives bd on dive_id = dives.id "
+                "LEFT OUTER JOIN batteries ON batteries.id = battery_id) ")
             r = c.fetchall()
             if names:
-                return [[q[2] for q in r if q[0] == rr] for rr in set(x[0] for x in r)]
+                return [[q['battery_name'] for q in r if q['dive_id'] == rr] for rr in set(x['dive_id'] for x in r)]
             else:
-                return [[q[1] for q in r if q[0] == rr] for rr in set(x[0] for x in r)]
+                return [[q['battery_id'] for q in r if q['dive_id'] == rr] for rr in set(x['dive_id'] for x in r)]
         else:
-            r = c.fetchall()
+            c.execute(
+                "SELECT dives.id as dive_id, batteries.id as battery_id, batteries.name as battery_name "
+                "FROM (dives "
+                "LEFT OUTER JOIN batteries_in_dives bd on dive_id = dives.id "
+                "LEFT OUTER JOIN batteries ON batteries.id = battery_id) "
+                "WHERE dive_id = %s", (dive_id,))
             if names:
-                return [[q[2] for q in r if q[0] == dive_id]]
+                return [q['battery_name'] for q in c.fetchall()]
             else:
-                return [[q[1] for q in r if q[0] == dive_id]]
+                return [q['battery_id'] for q in c.fetchall()]
 
     def insert_robot(self, data):
         c = self.db.cursor(dictionary=True)
@@ -109,17 +118,24 @@ class RobotsDB:
                        (data['time_finished'] - data['time_started']).total_seconds(),
                        data['robot_id']))
         dive_id = c.lastrowid
-        c.executemany("INSERT INTO batteries_in_dives (dive_id, battery_id) VALUES (%s, %s)",
-                      [(dive_id, b) for b in data['batteries']])
+        batteries = self.get_batteries(ids=data['batteries'])
+        c.executemany("INSERT INTO batteries_in_dives (dive_id, battery_id, voltage_start) VALUES (%s, %s, %s)",
+                      [(dive_id, b, batteries[i]['voltage']) for i, b in enumerate(data['batteries'])])
         self.db.commit()
 
-    def stop_dive(self, data):
+    def stop_dive(self, dive_id, voltages):
         c = self.db.cursor(dictionary=True)
-        dive = self.get_dives(ids=[data['id']])[0]
+        dive = self.get_dives(ids=[dive_id])[0]
         now = datetime.datetime.now()
+        duration = (now - dive['time_started']).total_seconds()
         c.execute("UPDATE dives SET time_finished = %s, duration = %s, running = false WHERE id = %s",
-                  (data['time_finished'], (data['time_finished'] - dive['time_started']).total_seconds(),
-                   data['id']))
+                  (now, duration, dive_id))
+        c.executemany("UPDATE batteries_in_dives SET voltage_finish = %s WHERE battery_id = %s && dive_id = %s",
+                      [(v, b, dive_id) for b, v in voltages])
+        c.executemany("UPDATE batteries SET voltage = %s, total_time = total_time + %s WHERE id = %s",
+                      [(v, duration, b) for b, v in voltages])
+        c.execute("UPDATE robots SET total_time = total_time + %s WHERE id = %s",
+                  (duration, dive['robot_id']))
         self.db.commit()
 
     def update_robot(self, data):
@@ -151,4 +167,29 @@ class RobotsDB:
     def delete_battery(self, battery_id):
         c = self.db.cursor(dictionary=True)
         c.execute("DELETE FROM batteries WHERE id = %s", (battery_id,))
+        self.db.commit()
+
+    def start_charge(self, data):
+        c = self.db.cursor(dictionary=True)
+        c.execute("INSERT INTO charges (battery_id, voltage_start, time_start) VALUES "
+                  "(%s, %s, %s)", (data['battery_id'], data['voltage_start'], data['time_start']))
+        charge_id = c.lastrowid
+        c.execute("UPDATE batteries SET charging = %s, charge_id = %s WHERE id = %s",
+                  (True, charge_id, data['battery_id']))
+        self.db.commit()
+        pass
+
+    def stop_charge(self, data):
+        c = self.db.cursor(dictionary=True)
+        now = datetime.datetime.now()
+        battery = self.get_batteries(ids=[data['battery_id']])[0]
+        c.execute("SELECT * FROM charges WHERE id = %s", (battery['charge_id'],))
+        charge = c.fetchall()[0]
+        duration = (now - charge['time_start']).total_seconds()
+        c.execute(
+            "UPDATE batteries SET charging = FALSE, charge_id = NULL, total_time_charging = %s, voltage = %s"
+            " WHERE id = %s",
+            (battery['total_time_charging'] + duration, data['voltage'], data['battery_id']))
+        c.execute("UPDATE charges SET time_finish = %s, voltage_finish = %s WHERE id = %s",
+                  (now, data['voltage'], battery['charge_id']))
         self.db.commit()

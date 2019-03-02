@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="RAV" uuid="02640433-cad8-4b12-9148-90005bc03d9f">
+    <data-source source="LOCAL" name="ROV_home" uuid="fdb114a7-0a88-4609-9db6-666e247a691d">
       <driver-ref>mysql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://home.me:3306/rav</jdbc-url>
+      <jdbc-url>jdbc:mysql://negative.ddns.net:3306/rav</jdbc-url>
       <driver-properties>
         <property name="autoReconnect" value="true" />
         <property name="zeroDateTimeBehavior" value="convertToNull" />

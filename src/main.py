@@ -55,6 +55,15 @@ def show_error(message):
     msg.exec()
 
 
+def show_info(message):
+    msg = QtWidgets.QMessageBox()
+    msg.setIcon(QtWidgets.QMessageBox.Information)
+    msg.setText(message)
+    msg.setWindowTitle("Info")
+    msg.setStandardButtons(QtWidgets.QMessageBox.Ok)
+    msg.exec()
+
+
 def ask(q):
     msg = QtWidgets.QMessageBox.question(None, "Battery control", q, QtWidgets.QMessageBox.Yes,
                                          QtWidgets.QMessageBox.No)
@@ -67,7 +76,7 @@ class MainWindow(QtWidgets.QMainWindow):
         super().__init__()
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
-        self.db = RobotsDB('home.me', 'ext', 'Qw123456_')
+        self.db = RobotsDB('negative.ddns.net', 'ext', 'Qw123456_')
         self.connect_buttons()
         self.robot_ids = []
         self.battery_ids = []
@@ -85,27 +94,43 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ui.button_remove_battery.clicked.connect(self.remove_battery)
         self.ui.button_start_dive.clicked.connect(self.start_new_dive)
         self.ui.button_stop_dive.clicked.connect(self.stop_dive)
+        self.ui.button_charge_battery.clicked.connect(self.charge_battery)
+        # TODO Settings {Json}
+        # TODO Threading
+        # TODO Release
+
+    def charge_battery(self):
+        battery_id = self.battery_ids[self.ui.table_batteries.currentIndex().row()]
+        battery = self.db.get_batteries(ids=[battery_id])[0]
+        d = NewBatteryDialog()
+        d.ui.edit_voltage.setValue(float(battery['voltage']))
+        d.ui.edit_name.setText(str(battery['name']))
+        d.ui.edit_name.setEnabled(False)
+        res = d.exec()
+        if res == QtWidgets.QDialog.Accepted:
+            if battery['charging']:
+                self.db.stop_charge({
+                    'battery_id': battery_id,
+                    'voltage': d.ui.edit_voltage.value()
+                })
+            else:
+                self.db.start_charge({
+                    'battery_id': battery_id,
+                    'time_start': datetime.datetime.now(),
+                    'voltage_start': d.ui.edit_voltage.value()
+                })
+            self.reload()
 
     def stop_dive(self):
         if len(self.dive_ids) > 0:
             dive_id = self.dive_ids[self.ui.table_dives.currentIndex().row()]
             dive = self.db.get_dives(ids=[dive_id])[0]
             if dive['running']:
-                time_finished = datetime.datetime.now()
-                self.db.stop_dive({
-                    'id': dive_id,
-                    'time_finished': time_finished
-                })
-                robot = self.db.get_robots(ids=[dive['robot_id']])[0]
-                duration = (time_finished - dive['time_started']).total_seconds()
-                robot['total_time'] = robot['total_time'] + duration
-                self.db.update_robot(robot)
-                batteries = self.db.get_dives_batteries(dive_id=dive_id, names=False)[0]
-                print(batteries)
-                for b_id in batteries:
-                    b = self.db.get_batteries(ids=[b_id])[0]
-                    b['total_time'] = b['total_time'] + duration
-                    self.db.update_battery(b)
+                show_info("Please update voltages on {}!".format(
+                    [b for b in self.db.get_dives_batteries(dive_id, True)]))
+                self.db.stop_dive(
+                    dive_id,
+                    [self.edit_battery(id=bid) for bid in self.db.get_dives_batteries(dive_id, False)])
                 self.reload()
 
     def start_new_dive(self):
@@ -202,15 +227,20 @@ class MainWindow(QtWidgets.QMainWindow):
             else:
                 show_error("Robot name cannot be empty!")
 
-    def edit_battery(self):
+    def edit_battery(self, id=None):
         if len(self.battery_ids) > 0:
             d = NewBatteryDialog()
-            battery_id = self.battery_ids[self.ui.table_batteries.currentIndex().row()]
+            if id is not None:
+                battery_id = id
+            else:
+                battery_id = self.battery_ids[self.ui.table_batteries.currentIndex().row()]
             battery = self.db.get_batteries(ids=[battery_id])[0]
             d.ui.edit_voltage.setValue(float(battery['voltage']))
             d.ui.edit_name.setText(str(battery['name']))
+            if id is not None:
+                d.ui.edit_name.setEnabled(False)
             res = d.exec()
-            if res == QtWidgets.QDialog.Accepted:
+            if res == QtWidgets.QDialog.Accepted or id is not None:
                 battery_name = str(d.ui.edit_name.text())
                 battery_voltage = float(d.ui.edit_voltage.value())
                 # print(battery_name, battery_voltage)
@@ -224,6 +254,7 @@ class MainWindow(QtWidgets.QMainWindow):
                     self.reload()
                 else:
                     show_error("Battery name cannot be empty!")
+                return battery_id, battery_voltage
 
     def edit_dive(self):
         pass
@@ -250,7 +281,10 @@ class MainWindow(QtWidgets.QMainWindow):
 
     def reload(self):
         self.ui.statusbar.showMessage("Connecting to {} as {}...".format(self.db.host, self.db.username))
-        self.db.connect()
+        try:
+            self.db.get_robots()
+        except:
+            self.db.connect()
         self.ui.statusbar.showMessage("Connected", 5000)
         self.robot_ids = [x['id'] for x in self.load_robots(self.ui.table_robots)]
         self.battery_ids = [x['id'] for x in self.load_batteries(self.ui.table_batteries)]
@@ -277,6 +311,11 @@ class MainWindow(QtWidgets.QMainWindow):
             for row, r in enumerate(data):
                 item = QtWidgets.QTableWidgetItem('{}'.format(r[name]))
                 table.setItem(row, col, item)
+        for row, r in enumerate(data):
+            if r['charging']:
+                for col in range(table.columnCount()):
+                    item = table.item(row, col)
+                    item.setBackground(QtGui.QBrush(QtGui.QColor.fromRgb(163, 163, 255)))
         return data
 
     def load_dives(self, table):
@@ -291,15 +330,10 @@ class MainWindow(QtWidgets.QMainWindow):
             else:
                 dive['duration'] = str((datetime.timedelta(seconds=dive['duration']))).split('.', 2)[0]
         for col, name in enumerate(
-                ['dive_id', 'robot_name', 'time_started', 'time_finished', 'duration']):
+                ['dive_id', 'robot_name', 'time_started', 'time_finished', 'duration', 'batteries']):
             for row, r in enumerate(data):
                 item = QtWidgets.QTableWidgetItem('{}'.format(r[name]))
                 table.setItem(row, col, item)
-
-        bat = self.db.get_dives_batteries()
-        for row, r in enumerate(bat):
-            item = QtWidgets.QTableWidgetItem('{}'.format(r))
-            table.setItem(row, table.columnCount() - 1, item)
 
         for row, r in enumerate(data):
             if r['running']:

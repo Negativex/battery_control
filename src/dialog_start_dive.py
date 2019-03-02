@@ -8,7 +8,6 @@
 
 from PyQt5 import QtCore, QtWidgets
 
-
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
@@ -89,3 +88,4 @@ class Ui_Dialog(object):
         item.setText(_translate("Dialog", "Voltage"))
         item = self.table_batteries.horizontalHeaderItem(3)
         item.setText(_translate("Dialog", "Total time used"))
+

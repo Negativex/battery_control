@@ -41,3 +41,4 @@ class Ui_dialog(object):
         _translate = QtCore.QCoreApplication.translate
         dialog.setWindowTitle(_translate("dialog", "New robot"))
         self.label.setText(_translate("dialog", "Name:"))
+
