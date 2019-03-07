@@ -354,6 +354,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
 if __name__ == '__main__':
     app = QtWidgets.QApplication([])
+    os.chdir(os.path.dirname(sys.argv[0]))
     current_path = os.getcwd()
     icon_path = os.path.join(current_path, 'assert', 'quadcopter.png')
     print(icon_path, os.path.exists(icon_path))
