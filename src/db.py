@@ -38,10 +38,12 @@ class RobotsDB:
             return c.fetchall()
         else:
             r = []
-            print(ids)
+            # print("ids ", ids)
             for x in ids:
                 c.execute("SELECT * FROM batteries where id = %s", (x,))
-                r.append(c.fetchall()[0])
+                fetchall = c.fetchall()
+                # print(fetchall)
+                r.append(fetchall[0])
             return r
 
     def get_dives(self, ids=None):

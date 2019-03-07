@@ -228,12 +228,16 @@ class MainWindow(QtWidgets.QMainWindow):
                 show_error("Robot name cannot be empty!")
 
     def edit_battery(self, id=None):
+        if not id:
+            id = None
         if len(self.battery_ids) > 0:
             d = NewBatteryDialog()
+            print("IDD", id)
             if id is not None:
                 battery_id = id
             else:
                 battery_id = self.battery_ids[self.ui.table_batteries.currentIndex().row()]
+            print('fff', self.battery_ids[self.ui.table_batteries.currentIndex().row()])
             battery = self.db.get_batteries(ids=[battery_id])[0]
             d.ui.edit_voltage.setValue(float(battery['voltage']))
             d.ui.edit_name.setText(str(battery['name']))
@@ -281,10 +285,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
     def reload(self):
         self.ui.statusbar.showMessage("Connecting to {} as {}...".format(self.db.host, self.db.username))
-        try:
-            self.db.get_robots()
-        except:
-            self.db.connect()
+        self.db.connect()
         self.ui.statusbar.showMessage("Connected", 5000)
         self.robot_ids = [x['id'] for x in self.load_robots(self.ui.table_robots)]
         self.battery_ids = [x['id'] for x in self.load_batteries(self.ui.table_batteries)]
@@ -293,6 +294,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
     def load_robots(self, table):
         data = self.db.get_robots()
+        print(data)
         table.setRowCount(len(data))
         for row, r in enumerate(data):
             r['total_time'] = datetime.timedelta(seconds=r['total_time'])
