@@ -15,7 +15,7 @@
         </property>
         <property name="windowIcon">
             <iconset>
-                <normalon>../../../Downloads/quadcopter.png</normalon>
+                <normaloff>../src/assert/quadcopter.png</normaloff>../src/assert/quadcopter.png
             </iconset>
         </property>
         <property name="documentMode">
@@ -141,8 +141,7 @@
                                             </property>
                                             <property name="icon">
                                                 <iconset>
-                                                    <normaloff>../../../Downloads/add.png</normaloff>
-                                                    ../../../Downloads/add.png
+                                                    <normaloff>../src/assert/add.png</normaloff>../src/assert/add.png
                                                 </iconset>
                                             </property>
                                         </widget>
@@ -284,8 +283,7 @@
                                             </property>
                                             <property name="icon">
                                                 <iconset>
-                                                    <normaloff>../../../Downloads/add.png</normaloff>
-                                                    ../../../Downloads/add.png
+                                                    <normaloff>../src/assert/add.png</normaloff>../src/assert/add.png
                                                 </iconset>
                                             </property>
                                         </widget>
@@ -453,8 +451,7 @@
                                             </property>
                                             <property name="icon">
                                                 <iconset>
-                                                    <normaloff>../../../Downloads/add.png</normaloff>
-                                                    ../../../Downloads/add.png
+                                                    <normaloff>../src/assert/add.png</normaloff>../src/assert/add.png
                                                 </iconset>
                                             </property>
                                         </widget>
